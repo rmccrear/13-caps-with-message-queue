@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "esbuild ./src/client/app.jsx --loader:.js=jsx --bundle --outfile=static/index.js",
+    "start-dev": "nodemon src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,7 +13,10 @@
   "dependencies": {
     "chance": "^1.1.8",
     "esbuild": "^0.15.11",
+    "express": "^4.18.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.3"
   }
 }
