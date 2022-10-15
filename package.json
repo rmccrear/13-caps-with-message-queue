@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild ./src/client/app.jsx --bundle --outfile=static/index.js",
+    "build": "esbuild ./src/client/app.jsx --loader:.js=jsx --bundle --outfile=static/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

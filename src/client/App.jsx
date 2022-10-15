@@ -3,21 +3,38 @@ import ReactDOM from 'react-dom/client';
 
 const e = React.createElement;
 
-class LikeButton extends React.Component {
+import Hub from "./Hub";
+import Vendor from "./Vendor";
+import Driver from "./Driver";
+
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { liked: false };
   }
 
   render() {
-    if (this.state.liked) {
-      return 'You liked this.';
-    }
+    return (
+        <div className="tree-diagram">
+            <ul>
+                <li className="tree-diagram__root">
+                    <Hub></Hub> 
+                    <ul>
+                        <li>
+                            <Vendor></Vendor>       
+                        </li>
+                        <li>
+                            <Driver></Driver>
+                        </li>
+                    </ul>
+                </li>
 
-    return (<button onClick={() => this.setState({liked: true})}>Like</button>)
+            </ul>
+         
+        </div>
+    );
   }
 }
 
 const domContainer = document.querySelector('#react_container');
 const root = ReactDOM.createRoot(domContainer);
-root.render(e(LikeButton));
+root.render(e(App));
