@@ -1,3 +1,6 @@
+# built bundle
+static/index.js
+
 # Logs
 logs
 *.log
