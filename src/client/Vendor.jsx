@@ -7,9 +7,12 @@ class Vendor extends Component {
     }
     state = {  }
     render() { 
-        return (<div className="vendor-container">
-            Vendor 
-        </div> );
+        return (<li className="vendor-container">
+            <div>
+                <p> Vendor </p>
+                <p> {this.props.name} </p>
+            </div>
+        </li> );
     }
 }
  

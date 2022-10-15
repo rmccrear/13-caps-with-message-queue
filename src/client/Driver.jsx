@@ -6,9 +6,12 @@ class Driver extends Component {
     }
     state = {  }
     render() { 
-        return (<div className="driver-container">
-            Driver
-        </div> );
+        return (<li>
+            <div className="driver-container">
+                <p> Driver </p>
+                <p>{this.props.name}</p>
+            </div>
+        </li>);
     }
 }
  

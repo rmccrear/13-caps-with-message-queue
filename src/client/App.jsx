@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client';
 const e = React.createElement;
 
 import Hub from "./Hub";
-import Vendor from "./Vendor";
-import Driver from "./Driver";
+import VendorCollection from "./VendorCollection";
+import DriverCollection from './DriverCollection';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,10 +20,10 @@ class App extends React.Component {
                     <Hub></Hub> 
                     <ul>
                         <li>
-                            <Vendor></Vendor>       
+                            <VendorCollection></VendorCollection>       
                         </li>
                         <li>
-                            <Driver></Driver>
+                            <DriverCollection></DriverCollection>
                         </li>
                     </ul>
                 </li>
