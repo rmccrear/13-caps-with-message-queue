@@ -6,6 +6,7 @@
   "scripts": {
     "build": "esbuild ./src/client/index.jsx --sourcemap --bundle --outfile=static/index.js",
     "start-dev": "nodemon src/server/index.js",
+    "start": "node src/server/index.js",
     "test": "jest --coverage --verbose"
   },
   "author": "",
