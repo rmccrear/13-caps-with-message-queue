@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-
-const e = React.createElement;
 
 import Hub from "./Hub";
 import VendorCollection from "./VendorCollection";
@@ -35,6 +32,4 @@ class App extends React.Component {
   }
 }
 
-const domContainer = document.querySelector('#react_container');
-const root = ReactDOM.createRoot(domContainer);
-root.render(e(App));
+export default App;
