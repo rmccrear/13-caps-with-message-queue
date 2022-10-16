@@ -10,15 +10,61 @@ class SocketConnection {
     }
 }
 
+class HubConnection extends SocketConnection {
+    constructor(){
+        super();
+        console.log('NEW HUB CONNECTION')
+        this.emit("join-as-logger");
+        this.socket.on("log", (logLine) => {
+            console.log("LOG", logLine);
+            if(this.onLogCallback){
+                this.onLogCallback(logLine);
+            }
+        });
+    }
+
+    setOnLogCallback(fn){
+        this.onLogCallback = fn;
+    }
+}
+
 class VendorConnection extends SocketConnection { 
     constructor(id, name) {
         super();
+        this.onPickupWasAccepted();
+        this.onItemWasDelivered();
         this.emit("join-as-vendor", {id, name});
     }
     requestPickup(item, vendor) { 
         console.log("VendorConnection sending request-pickup event to server")
         this.emit("request-pickup", { item, vendor });
     }
+
+    onPickupWasAccepted(){
+        this.socket.on("pickup-accepted", (payload)=>{
+            if(this.onPickupWasAcceptedCallback){
+                this.onPickupWasAcceptedCallback(payload);
+            }
+        })
+    }
+
+    setOnPickupWasAcceptedCallback(fn){
+        this.onPickupWasAcceptedCallback = fn;
+    }
+
+    onItemWasDelivered(){
+        this.socket.on("delivered", (payload)=>{
+            if(this.onItemWasDeliveredCallback){
+                this.onItemWasDeliveredCallback(payload);
+            }
+        })
+    }
+
+    setOnItemWasDeliveredCallback(fn){
+        this.onItemWasDeliveredCallback = fn;
+    }
+
+
 }
 
 
@@ -74,4 +120,4 @@ class DriverConnection extends SocketConnection {
 
 }
 
-export { SocketConnection, VendorConnection, DriverConnection };
+export { SocketConnection, VendorConnection, DriverConnection, HubConnection };

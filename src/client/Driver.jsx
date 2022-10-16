@@ -45,7 +45,6 @@ class Driver extends Component {
             const deliveryRequests = deleteItemFromDeliveryRequestsyById(this.state.deliveryRequests)(payload.item.id);
             this.setState({...this.state, busy: true, currentDelivery: payload, deliveryRequests});
             setTimeout(()=>{
-                console.log("timeout")
                 this.delivered(payload);
             }, Math.floor(Math.random()*5000+3000));
         } else {
@@ -55,6 +54,7 @@ class Driver extends Component {
 
     delivered(payload) {
         console.log(`Driver delivered ${payload.item.contents}`)
+        this.props.driver.relay.deliveryComplete(payload);
         this.setState({...this.state, busy: false, currentDelivery: null})
     }
 

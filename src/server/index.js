@@ -10,6 +10,9 @@ app.use(express.static("static"))
 
 const dateFormatter = require("date-format");
 class Logger { 
+    constructor(server){
+        this.server = server;
+    }
     log(event, payload) { 
         let eventText;
         switch (event) {
@@ -17,25 +20,34 @@ class Logger {
                 eventText = `${payload.vendor.name} is requesting pickup for ${payload.item.contents}.`
                 break;
             case "request-pickup-to-driver":
-                eventText = `sending request ${payload.vendor.name}`
+                eventText = `${payload.vendor.name} is sending a pickup request to drivers`
                 break;
             case "driver-accept-pickup":
                 eventText = `Driver ${payload.driver.name} has accepted ${payload.item.contents} from ${payload.item.vendor.name} (itemId: ${payload.item.id})`
                 break;
             case "pickup-accepted":
-                console.log(payload);
                 eventText = `Notify clients: ${payload.driver.name} has accepted ${payload.item.contents} from ${payload.item.vendor.name} (itemId: ${payload.item.id})`
                 break;
-         }
-         console.log("EVENT:", dateFormatter(), `(${event})`, eventText)
+            case "delivery-complete":
+                eventText = `Driver ${payload.driver.name} has completed delivery of ${payload.item.contents}`;
+                break;
+            case "delivered":
+                eventText = `Notifying ${payload.item.vendor.name} of completed delivery`;
+                break;
+        }
+        const logLine = `EVENT: ${dateFormatter()} (${event}) ${eventText}`;
+        console.log(logLine);
+        // console.log("EVENT:", dateFormatter(), `(${event})`, eventText)
+        this.server.in("loggers").emit("log", logLine)
     }
 }
 
 class Hub {
     constructor(io) { 
-        this.logger = new Logger();
+        this.logger = new Logger(io);
         this.onRequestPickup = this.onRequestPickup.bind(this);
         this.onAcceptPickup = this.onAcceptPickup.bind(this);
+        this.onDeliveryComplete = this.onDeliveryComplete.bind(this);
         this.io = io;
     }
     // Send to driver
@@ -64,6 +76,15 @@ class Hub {
         this.sendAcceptPickup(payload);
 
      }
+     onDeliveryComplete(payload){
+        const event = "delivered";
+        this.logger.log(event, payload);
+        this.sendDelivered(payload);
+     }
+     sendDelivered(payload){
+        // TODO: send the the vendor who sent it.
+        this.io.in("vendors").emit("delivered", payload);
+     }
  }
 
 const hub = new Hub(io);
@@ -72,6 +93,7 @@ io.on('connection', (socket) => {
     console.log('a user connected', socket.id);
     socket.on('request-pickup', hub.onRequestPickup);
     socket.on('driver-accept-pickup', hub.onAcceptPickup)
+    socket.on("delivery-complete", hub.onDeliveryComplete)
 
     socket.on('join-as-vendor', (payload) => { 
         console.log("joining as vendor", payload);
@@ -85,7 +107,13 @@ io.on('connection', (socket) => {
         socket.join("drivers");
         const clients = io.sockets.adapter.rooms.get('drivers');
         console.log("in room drivers", clients)
+    })
 
+    socket.on('join-as-logger', (payload) => { 
+        console.log("joining as logger", payload);
+        socket.join("loggers");
+        const clients = io.sockets.adapter.rooms.get('loggers');
+        console.log("in room loggers", clients)
     })
 
 });

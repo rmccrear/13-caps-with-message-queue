@@ -40,6 +40,24 @@ https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
 .driver-busy-truck::after {
     content: "🚚";
 }
+
+.hub-logger {
+  padding: 2px;
+  width: 90%;
+  border: solid;
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.hub-logger table {
+  font-size: small;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.hub-logger table tr:nth-child(even) {
+  background-color: aliceblue;
+}
 /*
 .driver-busy-truck{
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
