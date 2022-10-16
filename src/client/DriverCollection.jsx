@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import Chance from 'chance';
 import Driver from "./Driver";
+import { createDriver } from './models';
 
-const chance = new Chance();
-
-function createDriver() { 
-    return {
-        name: chance.name(),
-        id: chance.guid()
-    }
-}
 
 class DriverCollection extends Component {
     constructor(props) {
         super(props);
-        this.state = { drivers: [{ name: "John" }, { name: "Jane" }] };
+        this.state = { drivers: [createDriver(), createDriver()] };
         this.addDriver = this.addDriver.bind(this);
     }
     addDriver() {
@@ -28,7 +20,7 @@ class DriverCollection extends Component {
             <ul>
                 <li> Drivers: <button onClick={this.addDriver}> Add Driver </button>
                 <ul>
-                    {(this.state.drivers.map((d) => <Driver key={d.name} name={d.name}></Driver>))}
+                    {(this.state.drivers.map((d) => <Driver key={d.id} driver={d}></Driver>))}
                 </ul>
                 </li>
             </ul>

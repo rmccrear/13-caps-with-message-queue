@@ -11,7 +11,7 @@ const randomColor = () => {
 }
 
 const randomProductDescription = () =>  { 
-    return `Stuffed ${randomColor()} ${chance.animal()} x${Math.floor(Math.random() * 10 + 1)}`;
+    return `Plush ${randomColor()} ${chance.animal()} x${Math.floor(Math.random() * 10 + 1)}`;
 }
 
 
@@ -23,7 +23,7 @@ class Vendor extends Component {
     state = {  }
     onClick() { 
         const contents = randomProductDescription();
-        const item = { contents, vendor: this.props.vendor};
+        const item = { contents, vendor: this.props.vendor, id: chance.guid()};
         console.log("Vendor requesting pickup", item)
         this.props.vendor.relay.requestPickup(item, this.props.vendor.toJSON())
     }

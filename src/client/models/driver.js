@@ -1,14 +1,16 @@
-import { VendorConnection } from "../lib/socket-connection";
+
+import { DriverConnection } from "../lib/socket-connection";
 import Chance from 'chance';
 const chance = new Chance();
 
-function createVendor() { 
+function createDriver() { 
     const name = chance.name();
     const id = chance.guid();
-    const vendor = {
+    const relay = new DriverConnection(id, name);
+    const driver = {
         name,
         id,
-        relay: new VendorConnection(id, name),
+        relay,
         toJSON: function () { 
             return {
                 name: this.name,
@@ -16,7 +18,7 @@ function createVendor() {
             };
         }
     }
-    return vendor;
+    return driver;
 }
 
-export default createVendor;
+export default createDriver;

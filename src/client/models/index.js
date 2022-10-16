@@ -1,3 +1,4 @@
 import createVendor from "./vendor";
+import createDriver from "./driver";
 
-export { createVendor };
+export { createVendor, createDriver };
