@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-
-const e = React.createElement;
 
 import Hub from "./Hub";
 import VendorCollection from "./VendorCollection";
 import DriverCollection from './DriverCollection';
+import HubLogger from './HubLogger';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,27 +12,26 @@ class App extends React.Component {
 
   render() {
     return (
-        <div className="tree-diagram">
-            <ul>
-                <li className="tree-diagram__root">
-                    <Hub></Hub> 
-                    <ul>
-                        <li>
-                            <VendorCollection></VendorCollection>       
-                        </li>
-                        <li>
-                            <DriverCollection></DriverCollection>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-         
+        <div>
+            <HubLogger/>
+            <div className="tree-diagram">
+                <ul>
+                    <li className="tree-diagram__root">
+                        <Hub></Hub> 
+                        <ul>
+                            <li>
+                                <VendorCollection></VendorCollection>       
+                            </li>
+                            <li>
+                                <DriverCollection></DriverCollection>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     );
   }
 }
 
-const domContainer = document.querySelector('#react_container');
-const root = ReactDOM.createRoot(domContainer);
-root.render(e(App));
+export default App;

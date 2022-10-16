@@ -1,3 +1,9 @@
+# built bundle
+static/index.js
+static/index.js.map
+
+.DS_Store
+
 # Logs
 logs
 *.log

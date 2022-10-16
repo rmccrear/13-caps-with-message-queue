@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import Chance from 'chance';
 import Vendor from "./Vendor";
 
-const chance = new Chance();
+import { createVendor } from "./models";
 
-function createVendor() { 
-    return {
-        name: chance.name(),
-        id: chance.guid()
-    }
-}
 
 class VendorCollection extends Component {
     constructor(props) {
         super(props);
-        this.state = { vendors: [{ name: "Kate" }, { name: "Sally" }] };
+        this.state = { vendors: [createVendor(), createVendor()] };
         this.addVendor = this.addVendor.bind(this);
     }
     addVendor() {
@@ -28,7 +21,7 @@ class VendorCollection extends Component {
             <ul>
                 <li> Vendors: <button onClick={this.addVendor}> Add Vendor </button>
                 <ul>
-                    {(this.state.vendors.map((d) => <Vendor key={d.name} name={d.name}></Vendor>))}
+                        {(this.state.vendors.map((v) => <Vendor key={v.name} vendor={v}></Vendor>))}
                 </ul>
                 </li>
             </ul>
