@@ -4,19 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild ./src/client/app.jsx --loader:.js=jsx --bundle --outfile=static/index.js",
+    "build": "esbuild ./src/client/index.jsx --sourcemap --bundle --outfile=static/index.js",
     "start-dev": "nodemon src/server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --verbose"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jest/types": "^29.2.0",
     "chance": "^1.1.8",
+    "date-format": "^4.0.14",
     "esbuild": "^0.15.11",
     "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.5.3",
     "socket.io-client": "^4.5.3"
+  },
+  "devDependencies": {
+    "jest": "^29.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "esbuild-jest": "^0.5.0",
+    "jest-environment-jsdom": "^29.2.0",
+    "socket.io-mock": "^1.3.2"
   }
 }
