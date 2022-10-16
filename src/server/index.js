@@ -15,13 +15,19 @@ class Logger {
         switch (event) {
             case "request-pickup":
                 eventText = `${payload.vendor.name} is requesting pickup for ${payload.item.contents}.`
-                console.log("EVENT:", dateFormatter(), `(${event})`, eventText)
                 break;
             case "request-pickup-to-driver":
                 eventText = `sending request ${payload.vendor.name}`
-                console.log("EVENT:", dateFormatter(), `(${event})`, eventText)
+                break;
+            case "driver-accept-pickup":
+                eventText = `Driver ${payload.driver.name} has accepted ${payload.item.contents} from ${payload.item.vendor.name} (itemId: ${payload.item.id})`
+                break;
+            case "pickup-accepted":
+                console.log(payload);
+                eventText = `Notify clients: ${payload.driver.name} has accepted ${payload.item.contents} from ${payload.item.vendor.name} (itemId: ${payload.item.id})`
                 break;
          }
+         console.log("EVENT:", dateFormatter(), `(${event})`, eventText)
     }
 }
 
@@ -29,25 +35,35 @@ class Hub {
     constructor(io) { 
         this.logger = new Logger();
         this.onRequestPickup = this.onRequestPickup.bind(this);
+        this.onAcceptPickup = this.onAcceptPickup.bind(this);
         this.io = io;
     }
+    // Send to driver
     sendRequestPickup(payload) { 
         const event = "request-pickup-to-driver";
         this.logger.log(event, payload);
         const clients = io.sockets.adapter.rooms.get('drivers');
-        console.log("in room drivers", clients)
         this.io.in("drivers").emit(event, payload);
-        /*
-        for (let c of clients) { 
-            io.to(c).emit(event, payload)
-        }
-        */
     }
     onRequestPickup(payload) { 
         const event = "request-pickup";
         this.logger.log(event, payload);
-        this.sendRequestPickup(payload);
+        this.sendRequestPickup(payload); // send to driver
     }
+    sendAcceptPickup(payload) {
+        // send to client(s)
+        // TODO: only send to client who requested delivery
+        this.io.in("vendors").emit("pickup-accepted", payload);
+        // send to drivers to clear request list
+        this.io.in("drivers").emit("pickup-accepted", payload)
+
+     }
+    onAcceptPickup(payload) {
+        const event = "pickup-accepted";
+        this.logger.log(event, payload);
+        this.sendAcceptPickup(payload);
+
+     }
  }
 
 const hub = new Hub(io);
@@ -55,6 +71,7 @@ const hub = new Hub(io);
 io.on('connection', (socket) => {
     console.log('a user connected', socket.id);
     socket.on('request-pickup', hub.onRequestPickup);
+    socket.on('driver-accept-pickup', hub.onAcceptPickup)
 
     socket.on('join-as-vendor', (payload) => { 
         console.log("joining as vendor", payload);
