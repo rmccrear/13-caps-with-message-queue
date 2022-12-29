@@ -19,15 +19,30 @@ class PickupRequest extends Component {
         const status = this.props.deliveryStatus;
         if(status === "requested"){
             return (<div className='vendor-pickup-request'>
-                📦 Request sent for pickup of: {this.props.pickupRequest.contents}
+                <div>
+                    📦 Waiting:
+                </div>
+                <div>
+                    {this.props.pickupRequest.contents}
+                </div>
             </div>);
         } else if(status === "picked-up") {
             return (<div className='vendor-pickup-request'>
-                🚚 In transit: {this.props.pickupRequest.contents}
+                <div>
+                    🚚 In transit:
+                </div>
+                <div>
+                    {this.props.pickupRequest.contents}
+                </div>
             </div>);
         } else if(status === "delivered") {
             return (<div className='vendor-pickup-request'>
-                ✅ Delivered: {this.props.pickupRequest.contents}
+                <div>
+                    ✅ Delivered:
+                </div>
+                <div>
+                    {this.props.pickupRequest.contents}
+                </div>
             </div>);
         } else {
             return (<div className='vendor-pickup-request'>
@@ -91,11 +106,11 @@ class Vendor extends Component {
         this.setState({...this.state, pickupRequests, deliveryStatus});
     }
     render() { 
-        return (<li className="vendor-container">
-            <div>
-                <p> Vendor </p>
-                <p> {this.props.vendor.name} </p>
-                <p> <button onClick={this.onClick}> Request Pickup </button> </p>
+        return (<li>
+            <div className="vendor-container">
+                <div> Vendor </div>
+                <div> {this.props.vendor.name} </div>
+                <div> <button onClick={this.onClick}> Request Pickup </button> </div>
                 <PickupRequests pickupRequests={this.state.pickupRequests} deliveryStatus={this.state.deliveryStatus}/>
             </div>
         </li> );

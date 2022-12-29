@@ -1,12 +1,72 @@
+div {
+  line-height: 1.2em;
+}
+
+div.vendor-pickup-request div {
+  border: darkkhaki dashed;
+  padding: .5em;
+}
+
+div.vendor-pickup-request div:last-child {
+  border-top: 0;
+  margin-bottom: .5em;
+}
 
 .driver-item {
-    border: solid;
-    padding: 2px;
+  display: flex;
+  flex-direction: column;
+  border: darkolivegreen dashed;
+  border-bottom: 0;
+  padding: 2px;
+}
+
+.driver-item:last-child {
+  border-bottom:darkolivegreen dashed;
+}
+
+.driver-item div:first-child {
+  text-align: center;
+}
+
+.driver-item div:nth-child(2) {
+  padding: 0 .25em;
+  border-top: darkolivegreen dashed;
 }
 
 .driver-current-delivery {
-    border: solid;
-    padding: 2px;
+  border: darkolivegreen dashed;
+  padding: 2px;
+}
+
+.driver-container > div:first-child,
+.vendor-container > div:first-child {
+  text-align: center;
+  color:darkred;
+}
+
+.driver-container > div:first-child {
+  color:darkgreen;
+}
+
+.driver-container > div:nth-child(2),
+.vendor-container > div:nth-child(2) {
+  margin: 0 auto;
+  padding: 0 .5em;
+  height: 2.5em;
+}
+
+button {
+  width: 100%;
+  margin-top: .25em;
+}
+
+.driver-container {
+  background-color: aquamarine;
+}
+.vendor-container {
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -38,7 +98,7 @@ https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
     display: inline-block;
 }
 .driver-busy-truck::after {
-    content: "🚚";
+    content: " 🚚";
 }
 
 .hub-logger {

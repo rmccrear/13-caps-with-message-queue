@@ -5,9 +5,14 @@ class DriverItem extends Component {
         const { acceptPickup, rejectPickup, deliveryRequest } = this.props;
         return (
             <div className="driver-item">
-                <p> item: {deliveryRequest.item.contents} </p>
-                <p> <button onClick={() => acceptPickup(deliveryRequest)} disabled={this.props.driverBusy}>Accept</button>
-                    <button onClick={() => rejectPickup(deliveryRequest)}>Reject</button></p>
+                <div>
+                    Item
+                </div>
+                <div>
+                    {deliveryRequest.item.contents}
+                </div>
+                <div> <button onClick={() => acceptPickup(deliveryRequest)} disabled={this.props.driverBusy}>Accept</button> </div>
+                <div> <button onClick={() => rejectPickup(deliveryRequest)}>Reject</button> </div>
             </div>
         )
     }
@@ -85,12 +90,17 @@ class Driver extends Component {
         console.log(this.state)
         return (<li>
             <div className="driver-container">
-                <p>Driver</p>
-                <p> {this.props.driver.name}</p>
+                <div>Driver</div>
+                <div> {this.props.driver.name}</div>
                 {this.state.currentDelivery ? (
-                    <div className='driver-current-delivery'>
-                        Current Delivery: <div className="driver-busy-truck"></div> {this.state.currentDelivery.item.contents} for {this.state.currentDelivery.item.vendor.name}
-                    
+                    <div className='driver-item driver-current-delivery'>
+                        <div>
+                            Current Delivery:
+                            <div className="driver-busy-truck"></div>
+                        </div>
+                        <div>
+                             {this.state.currentDelivery.item.contents} for {this.state.currentDelivery.item.vendor.name}
+                        </div>
                     </div>
                 )
                 : ""}
