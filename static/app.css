@@ -7,17 +7,28 @@ div.vendor-pickup-request div {
   padding: .5em;
 }
 
+/* space between pickup-requests */
 div.vendor-pickup-request div:last-child {
   border-top: 0;
   margin-bottom: .5em;
+}
+
+/* don't let margin bleed through the bottom of parent */
+div.vendor-pickup-request:last-child div:last-child {
+  border-top: 0;
+  margin-bottom: 0;
 }
 
 .driver-item {
   display: flex;
   flex-direction: column;
   border: darkolivegreen dashed;
-  border-bottom: 0;
   padding: 2px;
+  margin-bottom: .5em;
+}
+
+.driver-item:last-child {
+  margin-bottom: 0;
 }
 
 .driver-item:last-child {
