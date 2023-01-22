@@ -1,3 +1,31 @@
+# Delivery service clicker game
+
+This is a simple demonstration of how to use Socket.io to send message between entities. There are three types of entities in this example, Venders, Drivers, and the Hub. The Venders represent "sellers" in our demo, and the Drivers represent the "delivery drivers". When you click on a Vendor, a random order of "plush stuffed animals" is initiated. This order message is sent to all the drivers who are listening to the socket. To acccept a job, you can click "Accept" for one of the drivers. Then, after a random timeout, the driver will "deliver" the package and send a message back to the Vendor. The Hub logs all activities of the Vendors and Drivers.
+
+## Setup
+
+To run this demo on your machine, first clone it and install with
+
+    git clone https://github.com/rmccrear/13-caps-with-message-queue.git
+    cd 13-caps-with-message-queue && npm install
+
+Then start it with:
+
+    npm start
+  
+or
+
+    npm run start-dev
+
+
+## Contributing
+
+Contributions welcome. Please see https://github.com/rmccrear/13-caps-with-message-queue/issues for what is needed.
+
+To contribute, please fork the repo in GitHub and create a new branch for your PR. Feel free to comment or ask questions in the [Issues](https://github.com/rmccrear/13-caps-with-message-queue/issues) section first, if you feel like you might like to contribute. Thanks!
+
+
+## Implementation Details
 
 List of events:
 
