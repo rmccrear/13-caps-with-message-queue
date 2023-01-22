@@ -1,6 +1,12 @@
 # Delivery service clicker game
 
-This is a simple demonstration of how to use Socket.io to send message between entities. There are three types of entities in this example, Venders, Drivers, and the Hub. The Venders represent "sellers" in our demo, and the Drivers represent the "delivery drivers". When you click on a Vendor, a random order of "plush stuffed animals" is initiated. This order message is sent to all the drivers who are listening to the socket. To acccept a job, you can click "Accept" for one of the drivers. Then, after a random timeout, the driver will "deliver" the package and send a message back to the Vendor. The Hub logs all activities of the Vendors and Drivers.
+This is a simple demonstration of how to use Socket.io to send message between entities.
+There are three types of entities in this example, Venders, Drivers, and the Hub. The Venders represent "sellers" in our demo, and the Drivers represent the "delivery drivers".
+When you click on a Vendor, a random order of "plush stuffed animals" is initiated.
+This order message is sent to all the drivers who are listening to the socket.
+To accept a job, you can click "Accept" for one of the drivers. 
+Then, after a random timeout, the driver will "deliver" the package and send a message back to the Vendor.
+The Hub logs all activities of the Vendors and Drivers.
 
 ## Setup
 
@@ -11,11 +17,14 @@ To run this demo on your machine, first clone it and install with
 
 Then start it with:
 
+    npm run build
     npm start
   
 or
 
     npm run start-dev
+
+
 
 
 ## Contributing
